@@ -58,7 +58,6 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            margin-top: 20px;
         }
         .popup button {
             padding: 15px 30px; /* Increased size */
@@ -93,13 +92,15 @@
             document.getElementById('popup').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
-        document.getElementById('overlay').addEventListener('click', hidePopup);
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('overlay').addEventListener('click', hidePopup);
+        });
     </script>
 </head>
 <body>
     <div class="container">
         <div class="title">
-            <h1>Gen. T De leon
+            <h1><a href="index.php" style="color: #28a745; text-decoration: none;">Gen. T De leon</a>
                 <br>
                 E - Marketplace</h1>
         </div>
@@ -109,7 +110,7 @@
     </div>
     <div id="popup" class="popup">
         <div class="buttons">
-            <button onclick="window.location.href='pages/sellerdashboard/dashboard.php'">Seller</button>
+            <button onclick="window.location.href='pages/sellerlogin.php'">Seller</button>
             <button onclick="window.location.href='pages/buyerdashboard/dashboard.php'">Buyer</button>
         </div>
     </div>

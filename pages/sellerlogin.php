@@ -1,9 +1,64 @@
+<?php
+session_start();
+if (isset($_SESSION['seller'])) {
+    header('Location: sellerdashboard/dashboard.php');
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "getem";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    $query = "SELECT Shop_Id, Password, Verified FROM Shops WHERE Email = ?";
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($shop_id, $hashed_password, $verified);
+    $stmt->fetch();
+
+    if ($stmt->num_rows > 0 && password_verify($password, $hashed_password)) {
+        if ($verified) {
+            $_SESSION['seller'] = $shop_id;
+            header('Location: sellerdashboard/Dashboard.php');
+        } else {
+            echo "<script>
+                    alert('Account under verification.');
+                  </script>";
+        }
+    } else {
+        echo "<script>
+                alert('Invalid email or password.');
+              </script>";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <style>
         body {
             display: flex;
@@ -49,7 +104,6 @@
             display: block;
             margin-bottom: 5px;
         }
-        .form-container input[type="text"],
         .form-container input[type="email"],
         .form-container input[type="password"] {
             width: 100%;
@@ -72,27 +126,37 @@
         .form-container input[type="submit"]:hover {
             background-color: #555;
         }
+        .account {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .account a {
+            color: rgb(70, 148, 88);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">Gen T. De Leon</div>
+        <div class="logo"><a href="../index.php" style="color: #fff; text-decoration: none;">Gen T. De Leon</a></div>
     </div>
     <div class="content">
         <div class="form-container">
-            <h2>Register</h2>
-            <form action="register_process.php" method="post">
-                <label for="username">Shop Name:</label>
-                <input type="text" id="username" name="username" required>
-                
+            <h2>Login</h2>
+            <form action="sellerlogin.php" method="post">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
                 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
                 
-                <input type="submit" value="Register">
+                <input type="submit" value="Login">
             </form>
+            <div class="account">
+                <p><small>Don't have an account?</small>
+                    <a href="sellerregister.php">Create an account</a>
+                </p>
+            </div>
         </div>
     </div>
 </body>

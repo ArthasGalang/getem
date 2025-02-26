@@ -29,6 +29,6 @@
     <a href="javascript:void(0);" class="button">Account</a>
     <a href="javascript:void(0);" class="button">Help</a>
     <a href="javascript:void(0);" class="button">About</a>
-    <a href="../../database/logout.php" class="button">Logout</a> 
+    <a href="../../index.php" class="button">Logout</a> 
 </body>
 </html>

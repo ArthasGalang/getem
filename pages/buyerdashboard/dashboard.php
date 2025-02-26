@@ -1,17 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['seller'])) {
-    header('Location: ../sellerlogin.php');
-    exit();
-}
+
 ?>
+ 
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Dashboard</title>
+    <title>Buyer Dashboard</title>
     <style>
         body {
             display: flex;
@@ -24,7 +22,7 @@ if (!isset($_SESSION['seller'])) {
         .header {
             width: 100%;
             height: 80px;
-            background-color:rgb(61, 143, 80);
+            background-color: rgb(61, 143, 80);
             color: #fff;
             padding: 20px;
             box-sizing: border-box;
@@ -46,7 +44,7 @@ if (!isset($_SESSION['seller'])) {
         }
         .sidebar {
             width: 250px; 
-            background-color:rgb(43, 44, 44);
+            background-color: rgb(43, 44, 44);
             color: #fff;
             padding: 20px;
             box-sizing: border-box;
@@ -59,7 +57,7 @@ if (!isset($_SESSION['seller'])) {
             text-decoration: none;
             color: #fff;
             padding: 15px; 
-            background-color:rgb(70, 148, 88);
+            background-color: rgb(70, 148, 88);
             border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -76,20 +74,6 @@ if (!isset($_SESSION['seller'])) {
             flex-direction: column;
             gap: 20px;
         }
-        .row {
-            display: flex;
-            gap: 20px;
-        }
-        .box {
-            flex: 1;
-            background-color: #f5f5f5;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        .box h2 {
-            margin-top: 0;
-        }
     </style>
     <script>
         function loadContent(page) {
@@ -100,20 +84,17 @@ if (!isset($_SESSION['seller'])) {
                 });
         }
         document.addEventListener('DOMContentLoaded', function() {
-            loadContent('dashboard-content.php');
+            loadContent('settings-content.php');
         });
     </script>
 </head>
 <body>
     <div class="header">
         <div class="logo"><a href="../../index.php" style="color: #fff; text-decoration: none;">Gen T. De Leon</a></div>
-        <div class="title">Seller Dashboard</div>
+        <div class="title">Buyer Dashboard</div>
     </div>
     <div class="content">
         <div class="sidebar">
-            <a href="javascript:void(0);" onclick="loadContent('dashboard-content.php')">Dashboard</a>
-            <a href="javascript:void(0);" onclick="loadContent('products-content.php')">Products</a>
-            <a href="javascript:void(0);" onclick="loadContent('orders-content.php')">Orders</a>
             <a href="javascript:void(0);" onclick="loadContent('settings-content.php')">Settings</a>
         </div>
         <div class="main-content">

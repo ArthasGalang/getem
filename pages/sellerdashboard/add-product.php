@@ -73,6 +73,9 @@
             
                 <input type="range" id="priceSlider" min="0" max="1000" step="0.01" oninput="document.getElementById('productPrice').value = this.value">
                 
+                <label for="productDescription">Description</label>
+                <textarea id="productDescription" name="productDescription" rows="4" required></textarea>
+                
                 <button type="submit">Add Product</button>
             </form>
         </div>
