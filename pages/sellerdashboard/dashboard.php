@@ -104,7 +104,7 @@
             <a href="javascript:void(0);" onclick="loadContent('settings-content.php')">Settings</a>
         </div>
         <div class="main-content">
-            
+            <!-- Content will be loaded here -->
         </div>
     </div>
 </body>
